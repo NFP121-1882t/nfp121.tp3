@@ -3,6 +3,8 @@ package question1;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IHMPile extends JFrame implements ActionListener{
     private JTextField donnee = new JTextField(6);
@@ -34,22 +36,38 @@ public class IHMPile extends JFrame implements ActionListener{
 
     }
 
-    public void actionPerformed(ActionEvent ae){
+  
+    public void actionPerformed(ActionEvent ae) {
+        
         if(ae.getActionCommand().equals("empiler")){
-
-            // à compléter
-
-            // en cas d'exception
-            //contenu.setText( /* à compléter */"" + " estPleine !");
+            
+          try {
+             
+   
+                 String s =donnee.getText();
+                 int a = Integer.parseInt(s);
+                p.empiler(a);
+                donnee.setText("");
+                 contenu.setText(p.toString());
+            } catch (PilePleineException ex) {
+               contenu.setText(p.toString() + " estPleine !");
+            }
+          catch (NumberFormatException nfe) {
+                contenu.setText(p.toString() + " error : " + nfe.getMessage());
+            }
 
         }else{
-
-            // à compléter
-            // en cas d'exception
-            //contenu.setText( /* à compléter */"" + " estVide !");
-        }
+            try {
+                String s = p.depiler().toString();
+                sommet.setText(s);
+                 contenu.setText(p.toString());         
+            } catch (PileVideException ex) {
+                 contenu.setText(p.toString() + " estVide !");
+            }
+          
+        
     }
-
+    }
     public static void main(String[] args){
         new IHMPile();
     }
